@@ -14,7 +14,7 @@
 # 
 # 4- Implemente a regressão linear do scikit-learn e compare os resultados obtidos.
 
-# In[264]:
+# In[355]:
 
 
 import numpy as np
@@ -24,7 +24,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_friedman1,make_classification
 
 
-# In[265]:
+# In[356]:
 
 
 #função para acessar os dados do exercício 1
@@ -34,7 +34,7 @@ def getData():
     return X, y
 
 
-# In[266]:
+# In[357]:
 
 
 #classe regLinear para exercício
@@ -64,7 +64,7 @@ class regLinear():
         return preds.reshape(-1,)
 
 
-# In[267]:
+# In[358]:
 
 
 #função para acessar os dados do exercício 2
@@ -74,56 +74,56 @@ def getData2():
     return X, y
 
 
-# In[268]:
+# In[359]:
 
 
 X,y=getData()
 
 
-# In[269]:
+# In[360]:
 
 
 X.shape, y.shape
 
 
-# In[270]:
+# In[361]:
 
 
 from sklearn.model_selection import train_test_split
 
 
-# In[271]:
+# In[ ]:
 
 
-x=np.c_[np.ones((X.shape[0],1)),X]
 
 
-# In[272]:
+
+# In[362]:
 
 
 x1=pd.DataFrame(x)
 
 
-# In[273]:
+# In[363]:
 
 
 x1.head()
 
 
-# In[274]:
+# In[364]:
 
 
 from sklearn.model_selection import KFold
 
 
-# In[275]:
+# In[365]:
 
 
 kf=KFold(n_splits=5)
 from sklearn.metrics import mean_squared_error
 
 
-# In[276]:
+# In[366]:
 
 
 def funcao(x,learning_rate,num_steps):
@@ -150,61 +150,61 @@ def funcao(x,learning_rate,num_steps):
   plt.show
 
 
-# In[277]:
+# In[367]:
 
 
 funcao(x,0.15,200)
 
 
-# In[278]:
+# In[368]:
 
 
 funcao(x,0.15,10)
 
 
-# In[279]:
+# In[369]:
 
 
 funcao(x,0.15,100)
 
 
-# In[280]:
+# In[370]:
 
 
 funcao(x,0.20,10)
 
 
-# In[281]:
+# In[371]:
 
 
 funcao(x,0.20,100)
 
 
-# In[282]:
+# In[372]:
 
 
 funcao(x,0.2,200)
 
 
-# In[283]:
+# In[373]:
 
 
 funcao(x,0.3,100)
 
 
-# In[284]:
+# In[374]:
 
 
 funcao(x,0.3,200)
 
 
-# In[285]:
+# In[375]:
 
 
 funcao(x,0.1,200)
 
 
-# In[286]:
+# In[376]:
 
 
 funcao(x,0.05,200)
@@ -222,26 +222,26 @@ funcao(x,0.05,200)
 # 
 # 
 
-# In[287]:
+# In[377]:
 
 
 from  sklearn.linear_model import LinearRegression
 
 
-# In[288]:
+# In[378]:
 
 
 lr=LinearRegression()
 lr.fit(x,y)
 
 
-# In[289]:
+# In[407]:
 
 
 lr.intercept_, lr.coef_
 
 
-# In[290]:
+# In[408]:
 
 
 ypred=lr.predict(x)
@@ -250,13 +250,7 @@ mse=mean_squared_error(y,ypred)
 print(mse)
 
 
-# In[291]:
-
-
-x.shape, y.shape
-
-
-# In[292]:
+# In[409]:
 
 
 from sklearn.metrics import mean_squared_error
@@ -265,11 +259,44 @@ def MSE(ytrue, ypred):
     return mean_squared_error(y_true = ytrue, y_pred = ypred)
 
 
-# In[293]:
+# In[410]:
 
 
 learning_rate = 0.075
 num_steps = 200
+
+m = X.shape[0] #qtd. linhas
+k = X.shape[1] #qtd. colunas
+
+theta = np.random.randn(k+1,1) # inicialização aleatórias dos parâmetros.
+X_b = np.c_[np.ones((m, 1)), X] #colocando x0 = 1 em todas as instâncias de X
+
+for step in range(num_steps):
+    
+    print('passo:', step)
+    print('theta:', theta.reshape(-1,))
+    
+    #calcula o gradiente
+    gradients = 2/m * X_b.T.dot(X_b.dot(theta) - y)
+    
+    #atualiza os valores de theta
+    theta = theta - learning_rate * gradients
+    
+    
+    #calculando o MSE dentro do passo:
+    ypred_step = X_b.dot(theta)
+    MSE_step = MSE(ytrue = y, ypred = ypred_step)
+    print("MSE:", MSE_step)
+    print('\n-----------------------------------------------------------\n') 
+
+
+# In[411]:
+
+
+learning_rate = 0.075
+num_steps = 200
+
+y = y.reshape(-1, 1)
 
 m = x.shape[0] #qtd. linhas
 k = x.shape[1] #qtd. colunas
@@ -287,24 +314,38 @@ for step in range(num_steps):
     
     #atualiza os valores de theta
     theta = theta - learning_rate * gradients
-
-
-​    
+    
+    
     #calculando o MSE dentro do passo:
     ypred_step = X_b.dot(theta)
     MSE_step = MSE(ytrue = y, ypred = ypred_step)
-      
+  
     print("MSE:", MSE_step)
     print('\n-----------------------------------------------------------\n') 
 
 
-# In[294]:
+# In[413]:
+
+
+def regLinearEquacaoNormal(X, y):
+    # adicionando x0 = 1 em cada instância
+    X = np.c_[np.ones((X.shape[0], 1)), X]
+    
+    transposta_X = X.T
+    XTX = transposta_X.dot(X)
+    inversa = np.linalg.inv( XTX )
+    
+    theta_best = inversa.dot(transposta_X).dot(y)
+    return theta_best
+
+
+# In[414]:
 
 
 regLinearEquacaoNormal(X, y)
 
 
-# In[295]:
+# In[385]:
 
 
 class regLinear():
@@ -332,25 +373,25 @@ class regLinear():
         return preds
 
 
-# In[296]:
+# In[386]:
 
 
 rg = regLinear(learning_rate = 0.075, num_steps = 200)
 
 
-# In[297]:
+# In[387]:
 
 
 rg.fit(X, y)
 
 
-# In[298]:
+# In[388]:
 
 
 rg.theta_final
 
 
-# In[299]:
+# In[389]:
 
 
 rg.predict(X)
@@ -358,7 +399,7 @@ rg.predict(X)
 
 # Comparando com o resultado da regressão linear do scikit-learn:
 
-# In[300]:
+# In[390]:
 
 
 lm = LinearRegression()
@@ -426,19 +467,19 @@ lm.predict(X)
 # 
 # 
 
-# In[301]:
+# In[391]:
 
 
 x1,y1=getData2()
 
 
-# In[302]:
+# In[392]:
 
 
 from sklearn.preprocessing import PolynomialFeatures
 
 
-# In[303]:
+# In[415]:
 
 
 lista=[0.07,0.08,0.09,0.1,0.12,0.13,0.14,0.15]
@@ -452,7 +493,7 @@ for i in lista:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-    
+
     lin_reg=regLinear(i,1000)
     lin_reg.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lin_reg.predict(xpol)))
@@ -462,7 +503,7 @@ for i in lista:
 
 # ### Com o teste acima determinamos que a melhor learning rate se trata de 0.14, a partir disso realizarei outro loop alterando o número de passos.
 
-# In[304]:
+# In[416]:
 
 
 step=[250,500,1000,1500,2000,5000]
@@ -476,7 +517,7 @@ for s in step:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-    
+
     lin_reg=regLinear(0.14,s)
     lin_reg.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lin_reg.predict(xpol)))
@@ -488,31 +529,31 @@ for s in step:
 
 # ### Portanto os parâmetros selecionados para regressão polinomial de grau 2 sera de 0.14 a taxa de aprendizado e 2000 passos.
 
-# In[305]:
+# In[417]:
 
 
 lr_pol=LinearRegression()
 
 
-# In[306]:
+# In[418]:
 
 
 xpol1=pol.fit_transform(x)
 
 
-# In[307]:
+# In[419]:
 
 
 lr_pol.fit(xpol1,y)
 
 
-# In[308]:
+# In[420]:
 
 
 mse_pol=mean_squared_error(y,lr_pol.predict(xpol1))
 
 
-# In[309]:
+# In[421]:
 
 
 print(mse_pol)
@@ -520,19 +561,13 @@ print(mse_pol)
 
 # ### Considerando o Mse da regressão do sklearn, vemos que ficou bem próximo do valor selecionado anteriormente, agora iremos instanciar a regularização.
 
-# In[310]:
+# In[422]:
 
 
 from sklearn.linear_model import Ridge,Lasso
 
 
-# In[ ]:
-
-
-
-
-
-# In[311]:
+# In[423]:
 
 
 ## Regularização Ridge
@@ -548,7 +583,7 @@ for a in alpha:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-    
+
     ridge=Ridge(alpha=a)
     ridge.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,ridge.predict(xpol)))
@@ -556,7 +591,7 @@ for a in alpha:
   print()
 
 
-# In[312]:
+# In[424]:
 
 
 ## Regularização Lasso
@@ -572,7 +607,7 @@ for a in alpha:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-    
+
     lasso=Lasso(alpha=a)
     lasso.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lasso.predict(xpol)))
@@ -582,7 +617,7 @@ for a in alpha:
 
 # ## Com a regularização é posssível constatar a melhor eficiência da regularização Ridge, apresentando um erro menor com alpha = 0.01
 
-# In[313]:
+# In[425]:
 
 
 from sklearn.preprocessing import StandardScaler
@@ -590,7 +625,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 
 
-# In[314]:
+# In[426]:
 
 
 def polyFit(X, y, grau): 
@@ -610,13 +645,7 @@ def polyFit(X, y, grau):
     return polynomial_regression
 
 
-# In[323]:
-
-
-tam=len(X)
-
-
-# In[337]:
+# In[428]:
 
 
 for grau in [1,2,20,300]:  
@@ -637,10 +666,74 @@ for grau in [1,2,20,300]:
     print("------------------------------------------------\n\n")
 
 
-# In[333]:
+# In[433]:
 
 
-x.shape, y.shape
+class regLinear():
+    
+    def __init__(self, learning_rate, num_steps):
+        self.learning_rate = learning_rate
+        self.num_steps = num_steps
+        
+    def fit(self, X, y):
+        y = y.reshape(-1,1)
+        m = X.shape[0] 
+        k = X.shape[1] 
+        theta = np.random.randn(k+1,1) 
+        X_b = np.c_[np.ones((m, 1)), X] 
+        for step in range(self.num_steps):
+            gradients = 2/m * X_b.T.dot(X_b.dot(theta) - y)
+            theta = theta - self.learning_rate * gradients
+        self.theta_final = theta
+        print("modelo treinado.")
+        
+    def predict(self, X):
+        m = X.shape[0]
+        X_b = np.c_[np.ones((m, 1)), X]
+        preds = X_b.dot(self.theta_final)
+        return preds
+
+
+# In[434]:
+
+
+rg = regLinear(learning_rate = 0.075, num_steps = 200)
+
+
+# In[435]:
+
+
+rg.fit(X, y)
+
+
+# In[436]:
+
+
+rg.theta_final
+
+
+# Comparando com o resultado da regressão linear do scikit-learn:
+
+# In[437]:
+
+
+lm = LinearRegression()
+lm.fit(X, y)
+print(lm.intercept_, lm.coef_)
+print()
+lm.predict(X)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
@@ -678,7 +771,7 @@ x.shape, y.shape
 # 
 # Use a regLogistica, classe criada na parte 1 do exercício, para treinar modelos nestes dados. Use validação cruzada para seleção dos parâmetros. Considere diferentes métricas de classificação e justifique as escolhas.
 
-# In[ ]:
+# In[429]:
 
 
 def getData2():
@@ -686,26 +779,26 @@ def getData2():
     return X, y
 
 
-# In[ ]:
+# In[430]:
 
 
 def logLossCost(ytrue, ypred_probs):
     return (ytrue * np.log(ypred_probs) + (1 - ytrue) * np.log(1 - ypred_probs)).mean() * -1
 
 
-# In[ ]:
+# In[431]:
 
 
 def sigmoid(t):
     return 1 / (1 + np.exp(-t))
 
 
-# In[ ]:
+# In[432]:
 
 
 class regLog():
 
-
+    
     def __init__(self, learning_rate, num_steps,limiar):
         self.learning_rate = learning_rate
         self.num_steps = num_steps
@@ -724,23 +817,23 @@ class regLog():
       self.theta_final=theta  
 
 
-​    
-​     
+    
+     
 
 
-​        
+        
     def predict_proba(self, X):
       m=X.shape[0]
       x_b=np.c_[np.ones((m,1)),X] 
-    
+
       probs = sigmoid(x_b.dot(self.theta_final))
       
       return probs.reshape(-1,)
-    
+
     def predict(self,X):
       m=X.shape[0]
       x_b=np.c_[np.ones((m,1)),X] 
-    
+
       probs = sigmoid(x_b.dot(self.theta_final))
       ypred= np.where(probs>self.limiar,1,0)
       return ypred
@@ -844,7 +937,7 @@ def func(x,y,v1,v2):
     ypred=reglog.predict(x)
     cf=confusion_matrix(y,ypred)
     print(" Matriz de confusão para uma taxa de aprendizado de :",l )
-
+  
     print(cf)
     print()
 
@@ -870,7 +963,7 @@ def func1(x,y,v1,v2):
     ypred=reglog.predict(x)
     cf=confusion_matrix(y,ypred)
     print(" Matriz de confusão para um número de passos de  :",l )
-
+  
     print(cf)
     print()
 
@@ -882,6 +975,30 @@ func1(x1,y1,0.1,0.5)
 
 
 # ## Após os testes pude verificar que com a taxa de 0.1 e número de passos = 1000 , apresentaram os melhores resultados.
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
 
 # In[ ]:
 
