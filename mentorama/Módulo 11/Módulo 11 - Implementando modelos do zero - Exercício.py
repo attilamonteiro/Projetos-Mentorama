@@ -287,12 +287,13 @@ for step in range(num_steps):
     
     #atualiza os valores de theta
     theta = theta - learning_rate * gradients
-    
-    
+
+
+​    
     #calculando o MSE dentro do passo:
     ypred_step = X_b.dot(theta)
     MSE_step = MSE(ytrue = y, ypred = ypred_step)
-  
+      
     print("MSE:", MSE_step)
     print('\n-----------------------------------------------------------\n') 
 
@@ -451,7 +452,7 @@ for i in lista:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-
+    
     lin_reg=regLinear(i,1000)
     lin_reg.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lin_reg.predict(xpol)))
@@ -475,7 +476,7 @@ for s in step:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-
+    
     lin_reg=regLinear(0.14,s)
     lin_reg.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lin_reg.predict(xpol)))
@@ -547,7 +548,7 @@ for a in alpha:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-
+    
     ridge=Ridge(alpha=a)
     ridge.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,ridge.predict(xpol)))
@@ -571,7 +572,7 @@ for a in alpha:
 
     pol=PolynomialFeatures(degree=2,include_bias=False)
     xpol=pol.fit_transform(xtreino)
-
+    
     lasso=Lasso(alpha=a)
     lasso.fit(xpol,ytreino)
     lista1.append(mean_squared_error(ytreino,lasso.predict(xpol)))
@@ -628,7 +629,7 @@ for grau in [1,2,20,300]:
     
     plt.figure(figsize=[6,5])
     plt.plot(X, ypoly, label=str(grau), lw=2, c = 'red')
-    plt.scatter(X[:10000,:7], y[:10000,:7], c = "blue")
+    plt.scatter(X, y, c = "blue")
     plt.axis([-3, 3, 0, 10])
     plt.show()
     print("RMSE:")
@@ -704,7 +705,7 @@ def sigmoid(t):
 
 class regLog():
 
-    
+
     def __init__(self, learning_rate, num_steps,limiar):
         self.learning_rate = learning_rate
         self.num_steps = num_steps
@@ -723,23 +724,23 @@ class regLog():
       self.theta_final=theta  
 
 
-    
-     
+​    
+​     
 
 
-        
+​        
     def predict_proba(self, X):
       m=X.shape[0]
       x_b=np.c_[np.ones((m,1)),X] 
-
+    
       probs = sigmoid(x_b.dot(self.theta_final))
       
       return probs.reshape(-1,)
-
+    
     def predict(self,X):
       m=X.shape[0]
       x_b=np.c_[np.ones((m,1)),X] 
-
+    
       probs = sigmoid(x_b.dot(self.theta_final))
       ypred= np.where(probs>self.limiar,1,0)
       return ypred
@@ -843,7 +844,7 @@ def func(x,y,v1,v2):
     ypred=reglog.predict(x)
     cf=confusion_matrix(y,ypred)
     print(" Matriz de confusão para uma taxa de aprendizado de :",l )
-  
+
     print(cf)
     print()
 
@@ -869,7 +870,7 @@ def func1(x,y,v1,v2):
     ypred=reglog.predict(x)
     cf=confusion_matrix(y,ypred)
     print(" Matriz de confusão para um número de passos de  :",l )
-  
+
     print(cf)
     print()
 
