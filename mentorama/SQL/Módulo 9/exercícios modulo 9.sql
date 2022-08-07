@@ -1,5 +1,13 @@
 /*
--- Query: WITH sales_by_film_category AS 
+# A view chamada sales_by_film_category traz o resultado total de vends em alugéis por categoria dos filmes. Escreva uma consulta que complemente essa tabelacom as seguintes métricas para cada categoria:
+#valor médio do aluguel dos filmes por categoria;
+#valor médio do custo de reposição dos filmes por categoria;
+#total de vendas por categoria na loja 1;
+#total de vendas por categoria na loja 2;
+#total de títulos disponíveis por categoria
+*/
+
+WITH sales_by_film_category AS 
 (SELECT 
 ca.name AS category,
 ca.category_id AS category_ID,
@@ -103,35 +111,6 @@ FROM sales_by_film_category aux
     on aux2.category_ID=aux3.category_ID
   INNER JOIN aux_titulos aux4
     on aux3.category_ID=aux4.category_ID
--- Date: 2022-08-07 10:52
-*/
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Action',4375.85,1.598696,21.179748,'loja 1',312);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Action',4375.85,1.598696,21.179748,'loja 2',312);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Animation',4656.30,7.561429,20.280738,'loja 1',335);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Animation',4656.30,7.561429,20.280738,'loja 2',335);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Children',3655.55,3.156667,20.057725,'loja 1',269);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Children',3655.55,3.156667,20.057725,'loja 2',269);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Classics',3639.59,3.990000,20.956986,'loja 1',270);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Classics',3639.59,3.990000,20.956986,'loja 2',270);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Comedy',4383.58,4.323333,19.018693,'loja 1',269);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Comedy',4383.58,4.323333,19.018693,'loja 2',269);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Documentary',4217.52,6.037619,20.725238,'loja 1',294);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Documentary',4217.52,6.037619,20.725238,'loja 2',294);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Drama',4587.39,5.523333,21.633396,'loja 1',300);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Drama',4587.39,5.523333,21.633396,'loja 2',300);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Family',4226.07,5.712222,20.006423,'loja 1',310);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Family',4226.07,5.712222,20.006423,'loja 2',310);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Foreign',4270.67,5.990000,18.615363,'loja 1',300);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Foreign',4270.67,5.990000,18.615363,'loja 2',300);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Games',4281.33,5.729130,20.736130,'loja 1',276);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Games',4281.33,5.729130,20.736130,'loja 2',276);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Horror',3722.54,1.490000,19.616478,'loja 1',248);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Horror',3722.54,1.490000,19.616478,'loja 2',248);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Music',3417.72,1.720769,19.188795,'loja 1',232);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Music',3417.72,1.720769,19.188795,'loja 2',232);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('New',4351.62,6.101111,19.727234,'loja 1',275);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('New',4351.62,6.101111,19.727234,'loja 2',275);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Sports',5314.21,4.126364,20.558278,'loja 1',344);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Sports',5314.21,4.126364,20.558278,'loja 2',344);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Travel',3549.64,3.775714,19.156069,'loja 1',235);
-INSERT INTO `` (`category`,`total_sales`,`média_aluguel`,`média_reposição`,`loja`,`qtd_titulos`) VALUES ('Travel',3549.64,3.775714,19.156069,'loja 2',235);
+
+;
+
