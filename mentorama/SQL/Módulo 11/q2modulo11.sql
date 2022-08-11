@@ -8,15 +8,15 @@
 Com isso, responda: há diferença no número médio de dias entre aluguéis desse segmento de consumidores para as duas lojas?
 */
 
-
-SELECT * , COUNT(rental_id) as alugueis , 
-SELECT LEAD(aluguel) OVER ( PARTITION BY customer_id ORDER BY rental_date ROWS UNBOUNDED PRECEDING) as aluguel_anterior
-
+WITH aluguel as 
+(
+SELECT customer_id , rental_date, COUNT(rental_id) as alugueis
 from sakila.rental
 WHERE rental_date BETWEEN "2005-05-01" AND "2005-05-31"
-GROUP BY customer_id
+GROUP BY 1
 HAVING COUNT(rental_id) >=2
 order by COUNT(rental_id) ASC
+),
 
 datas AS (
 SELECT aluguel,
