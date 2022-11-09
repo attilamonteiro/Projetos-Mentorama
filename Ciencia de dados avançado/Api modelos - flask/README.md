@@ -1,39 +1,32 @@
-# House-price-prediction-using-flask
-In this project, I developed the predictive power of a model trained on houses price data. It deploy with flask api and using Linear Regression to predict the price value. Deploy Machine Learning Model Using Flask to take model from python code.
+# House price prediction
+Neste projeto, desenvolvi o poder preditivo de um modelo treinado em dados de preços de casas. Foi implantado com a API e usando a regressão linear e SVR para prever o valor do preço.
 
-If you want to more clear explonation, see my blog [House Price Prediction using Flask for Beginners](https://techyscientists.blogspot.com/2021/07/house-price-prediction-using-flask.html)
 
-## Installation
+## Instalação
 
-To run the web app on your local computer, install the required libraries, These packages are included in requirement.txt. In this project used Python3.8.0 and Flask 2.0.1.
-Run the following command in terminal to install the required packages.<br><br>
+Para executar o aplicativo da Web em seu computador local, instale as bibliotecas necessárias. Para executar o aplicativo da Web em seu computador local, instale as bibliotecas necessárias.
 
-```
-pip install -r requirement.txt
-```
 <br>
 <br>
 
-## Getting Started
+## Começando
 
-To run code on your computer, following command in terminal<br><br>
+Para executar o código no seu computador, seguindo o comando no terminal<br><br>
 ```
 python app.py
 ```
 <br>
 <br>
 
-## Preview
-<img src='https://github.com/JafirDon/House-price-prediction-using-flask/blob/main/static/images/form.png'></img>
+## Visualizar
+<img src='https://github.com/attilamonteiro/Projetos-Mentorama/blob/main/Ciencia%20de%20dados%20avan%C3%A7ado/Api%20modelos%20-%20flask/static/images/form.png'></img>
 <br>
 <br>
-<img src='https://github.com/JafirDon/House-price-prediction-using-flask/blob/main/static/images/prediction.png'></img>
-<br>
-<br>
-
-## License
-MIT License
+<img src='https://github.com/attilamonteiro/Projetos-Mentorama/blob/main/Ciencia%20de%20dados%20avan%C3%A7ado/Api%20modelos%20-%20flask/static/images/prediction.png'></img>
 <br>
 <br>
 
-### Thank you
+<br>
+<br>
+
+### Obrigado
